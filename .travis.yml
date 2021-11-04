@@ -1,0 +1,12 @@
+languaje: java
+branches: 
+  only:
+    - develop
+notifications: 
+  email:
+      recipients:
+        - al02896769@tecmilenio.mx
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script: 
+  - mvn verify
