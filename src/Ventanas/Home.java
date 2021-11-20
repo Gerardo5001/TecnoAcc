@@ -10,6 +10,7 @@ import Modelos.Producto;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,13 +20,16 @@ public class Home extends javax.swing.JFrame {
     
     private List<String> productosAgregados = new ArrayList<String>();
     private String modelo;
-
+    private final String nombreColumnas[] = {"Nombre","Modelo","Numero de parte","Precio"};
+    private Producto producto;
+    DefaultTableModel model = new DefaultTableModel(null, nombreColumnas);
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
         this.setLocationRelativeTo(null);
+        jTable1.setModel(model);
     }
 
     /**
@@ -50,7 +54,6 @@ public class Home extends javax.swing.JFrame {
         jLabelDescripcion = new javax.swing.JLabel();
         jButtonBuscar = new javax.swing.JButton();
         jButtonAgregar = new javax.swing.JButton();
-        jLabelAgregados = new javax.swing.JLabel();
         jButtonCancelar = new javax.swing.JButton();
         jButtonVender = new javax.swing.JButton();
         jLabelNameUsuario = new javax.swing.JLabel();
@@ -58,6 +61,8 @@ public class Home extends javax.swing.JFrame {
         jLabelNombreProd = new javax.swing.JLabel();
         jLabelIdProducto = new javax.swing.JLabel();
         jLabelCantidadProducto = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -121,10 +126,6 @@ public class Home extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, -1, -1));
 
-        jLabelAgregados.setText("No hay productos agregados actualmente...");
-        jLabelAgregados.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        getContentPane().add(jLabelAgregados, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 440, 300));
-
         jButtonCancelar.setText("Cancelar");
         getContentPane().add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 450, -1, -1));
 
@@ -146,8 +147,24 @@ public class Home extends javax.swing.JFrame {
         jLabelCantidadProducto.setText("Cantidad disponible");
         getContentPane().add(jLabelCantidadProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, -1, -1));
 
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, -1, 370));
+
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/Fondo.jpg"))); // NOI18N
-        jLabelFondo.setPreferredSize(new java.awt.Dimension(1080, 864));
         getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 700));
 
         pack();
@@ -168,7 +185,7 @@ public class Home extends javax.swing.JFrame {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:}
         ConectarBD conexion = new ConectarBD();
-        Producto producto = conexion.buscarProducto(jTextFieldId.getText());
+        producto = conexion.buscarProducto(jTextFieldId.getText());
         if(producto!=null){
             if(producto.getCantidad()<1)
                 JOptionPane.showMessageDialog(null, "El producto no esta disponible.");
@@ -190,9 +207,8 @@ public class Home extends javax.swing.JFrame {
         }
         else{
             if(productosAgregados.size()<1)
-            jLabelAgregados.setText("");
             productosAgregados.add(jTextFieldId.getText());
-            jLabelAgregados.setText(jLabelAgregados.getText() +" "+ jTextFieldNombre.getText() + modelo);
+            agregarProductoTabla(producto);
             jTextFieldNombre.setText("");
             jTextFieldId.setText("");
             jTextFieldCantidad.setText("");
@@ -200,7 +216,14 @@ public class Home extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButtonAgregarActionPerformed
-
+    public void agregarProductoTabla(Producto produc){
+        Object[] dato = new Object[nombreColumnas.length];
+        dato[0] = produc.getNombreProducto();
+        dato[1] = produc.getModelo();
+        dato[2] = produc.getNumeroParte();
+        dato[3] = produc.getPrecio();
+        model.addRow(dato);
+    }
     /**
      * @param args the command line arguments
      */
@@ -246,7 +269,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton jButtonUsuarios;
     private javax.swing.JButton jButtonVender;
     private javax.swing.JButton jButtonVentas;
-    private javax.swing.JLabel jLabelAgregados;
     private javax.swing.JLabel jLabelCantidadProducto;
     private javax.swing.JLabel jLabelDescripcion;
     private javax.swing.JLabel jLabelDescripcionProd;
@@ -256,6 +278,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNameUsuario;
     private javax.swing.JLabel jLabelNombreProd;
     private javax.swing.JLabel jLabelUsuario;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldCantidad;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldNombre;
