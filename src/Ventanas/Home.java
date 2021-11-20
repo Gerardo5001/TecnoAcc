@@ -22,16 +22,27 @@ public class Home extends javax.swing.JFrame {
     private String modelo;
     private final String nombreColumnas[] = {"Nombre","Modelo","Numero de parte","Precio"};
     private Producto producto;
-    DefaultTableModel model = new DefaultTableModel(null, nombreColumnas);
+    DefaultTableModel model = new DefaultTableModel(null, nombreColumnas){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+        
+    };
     /**
      * Creates new form Home
      */
+    public Home(String name) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        jTable1.setModel(model);
+        jLabelUsuarioName.setText(name);
+    }
     public Home() {
         initComponents();
         this.setLocationRelativeTo(null);
         jTable1.setModel(model);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,6 +74,7 @@ public class Home extends javax.swing.JFrame {
         jLabelCantidadProducto = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabelUsuarioName = new javax.swing.JLabel();
         jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,6 +82,7 @@ public class Home extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButtonCerra.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonCerra.setText("X");
         jButtonCerra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,13 +91,14 @@ public class Home extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonCerra, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 0, -1, -1));
 
+        jButtonCerrarSesion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonCerrarSesion.setText("Cerrar Sesion");
         jButtonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCerrarSesionActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 140, -1, -1));
+        getContentPane().add(jButtonCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 150, -1, -1));
 
         jButtonVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/iconCarShop.png"))); // NOI18N
         jButtonVentas.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/iconCarShopSelec.png"))); // NOI18N
@@ -95,7 +109,7 @@ public class Home extends javax.swing.JFrame {
         getContentPane().add(jButtonUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 130, -1, -1));
 
         jLabelUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/iconUser.png"))); // NOI18N
-        getContentPane().add(jLabelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 60, 60, 60));
+        getContentPane().add(jLabelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(973, 55, 60, 60));
 
         jButtonAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/iconStock.png"))); // NOI18N
         jButtonAlmacen.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/iconStockSelec.png"))); // NOI18N
@@ -107,9 +121,13 @@ public class Home extends javax.swing.JFrame {
         getContentPane().add(jTextFieldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 250, 30));
         getContentPane().add(jTextFieldCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 250, 30));
 
+        jLabelDescripcion.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelDescripcion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelDescripcion.setForeground(new java.awt.Color(255, 255, 255));
         jLabelDescripcion.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        getContentPane().add(jLabelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, 240, 90));
+        getContentPane().add(jLabelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 240, 80));
 
+        jButtonBuscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonBuscar.setText("Buscar por #Parte");
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +136,7 @@ public class Home extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 450, -1, -1));
 
+        jButtonAgregar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonAgregar.setText("Agregar");
         jButtonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,26 +145,40 @@ public class Home extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, -1, -1));
 
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonCancelar.setText("Cancelar");
         getContentPane().add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 450, -1, -1));
 
+        jButtonVender.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonVender.setText("Vender");
         getContentPane().add(jButtonVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 450, -1, -1));
 
-        jLabelNameUsuario.setText("Bienvenid@ name");
-        getContentPane().add(jLabelNameUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 120, -1, -1));
+        jLabelNameUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelNameUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNameUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelNameUsuario.setText("Bienvenid@");
+        getContentPane().add(jLabelNameUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(955, 120, 100, -1));
 
+        jLabelDescripcionProd.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelDescripcionProd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelDescripcionProd.setForeground(new java.awt.Color(255, 255, 255));
         jLabelDescripcionProd.setText("Descripcion");
-        getContentPane().add(jLabelDescripcionProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, -1, -1));
+        getContentPane().add(jLabelDescripcionProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, -1));
 
+        jLabelNombreProd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelNombreProd.setForeground(new java.awt.Color(255, 255, 255));
         jLabelNombreProd.setText("Nombre del producto");
         getContentPane().add(jLabelNombreProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, -1, -1));
 
+        jLabelIdProducto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelIdProducto.setForeground(new java.awt.Color(255, 255, 255));
         jLabelIdProducto.setText("Numero de parte");
         getContentPane().add(jLabelIdProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, -1));
 
+        jLabelCantidadProducto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelCantidadProducto.setForeground(new java.awt.Color(255, 255, 255));
         jLabelCantidadProducto.setText("Cantidad disponible");
-        getContentPane().add(jLabelCantidadProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, -1, -1));
+        getContentPane().add(jLabelCantidadProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 273, -1, -1));
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -162,7 +195,14 @@ public class Home extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, -1, 370));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, -1, 340));
+
+        jLabelUsuarioName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelUsuarioName.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelUsuarioName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelUsuarioName.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabelUsuarioName, new org.netbeans.lib.awtextra.AbsoluteConstraints(955, 134, 100, -1));
+        jLabelUsuarioName.getAccessibleContext().setAccessibleName("");
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/Fondo.jpg"))); // NOI18N
         getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 700));
@@ -278,6 +318,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNameUsuario;
     private javax.swing.JLabel jLabelNombreProd;
     private javax.swing.JLabel jLabelUsuario;
+    private javax.swing.JLabel jLabelUsuarioName;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldCantidad;

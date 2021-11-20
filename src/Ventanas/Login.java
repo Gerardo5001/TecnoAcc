@@ -14,9 +14,6 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null); //Funcion para centrar ventanas
@@ -92,7 +89,7 @@ public class Login extends javax.swing.JFrame {
         String contra = jTextPassword.getText();
         
         if(conexion.ValidarUsuario(user, contra)!=null){
-            Home ventanaHome = new Home();
+            Home ventanaHome = new Home(user);
             ventanaHome.setVisible(true);
             this.setVisible(false);
         }else{
@@ -100,7 +97,7 @@ public class Login extends javax.swing.JFrame {
         }
         conexion.cerrarBD();
     }//GEN-LAST:event_jButtonEntrarActionPerformed
-
+   
     /**
      * @param args the command line arguments
      */
