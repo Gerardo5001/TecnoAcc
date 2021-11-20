@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Gerardo
@@ -30,14 +31,14 @@ public class ConectarBD {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error 1: "+ ex);
+            JOptionPane.showMessageDialog(null, ex);
         }
         try {
             con = DriverManager.getConnection(URL,USUARIO,PASS);
             System.out.println("CONEXION EXITOSA CONTINUA n.n");
         } catch (SQLException ex) {
             Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error 2: "+ ex);
+            JOptionPane.showMessageDialog(null, ex);
         }
     }
     
