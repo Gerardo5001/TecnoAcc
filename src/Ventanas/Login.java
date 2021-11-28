@@ -89,7 +89,7 @@ public class Login extends javax.swing.JFrame {
         String contra = jTextPassword.getText();
         
         if(conexion.ValidarUsuario(user, contra)!=null){
-            Home ventanaHome = new Home(user);
+            Home ventanaHome = new Home(conexion.BuscarUsuario(user));
             ventanaHome.setVisible(true);
             this.setVisible(false);
         }else{

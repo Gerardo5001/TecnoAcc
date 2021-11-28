@@ -7,6 +7,7 @@ package Ventanas;
 
 import Controladores.ConectarBD;
 import Modelos.Producto;
+import Modelos.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -21,7 +22,9 @@ public class Home extends javax.swing.JFrame {
     private List<String> productosAgregados = new ArrayList<String>();
     private String modelo;
     private final String nombreColumnas[] = {"Nombre","Modelo","Numero de parte","Precio"};
+    private final String nombreColumnasUsuarios[] = {"ID","Usuario","Password","Privilegio"};
     private Producto producto;
+    private Usuario usuario;
     DefaultTableModel model = new DefaultTableModel(null, nombreColumnas){
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -29,19 +32,31 @@ public class Home extends javax.swing.JFrame {
         }
         
     };
+    DefaultTableModel modeltablaUsuarios = new DefaultTableModel(null, nombreColumnasUsuarios){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; //To change body of generated methods, choose Tools | Templates.
+        }  
+    };
     /**
      * Creates new form Home
      */
-    public Home(String name) {
+    public Home(Usuario user) {
         initComponents();
         this.setLocationRelativeTo(null);
         jTable1.setModel(model);
-        jLabelUsuarioName.setText(name);
+        jLabelUsuarioName.setText(user.getUsuario());
+        usuario = user;
+        ocultarPantallaVentas();
+        jLayeredPaneUsuarios.setVisible(false);
+        jTableUsuarios.setModel(modeltablaUsuarios);
     }
     public Home() {
         initComponents();
         this.setLocationRelativeTo(null);
         jTable1.setModel(model);
+        
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,6 +67,18 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLayeredPaneUsuarios = new javax.swing.JLayeredPane();
+        jButtonBuscarUsuario = new javax.swing.JButton();
+        jButtonAgregarUsuario = new javax.swing.JButton();
+        Usuario = new javax.swing.JLabel();
+        jTextFieldNombreUsuario = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldIdUsuario = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldPassUsuario = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableUsuarios = new javax.swing.JTable();
+        jButtonBorrarUsuario = new javax.swing.JButton();
         jButtonCerra = new javax.swing.JButton();
         jButtonCerrarSesion = new javax.swing.JButton();
         jButtonVentas = new javax.swing.JButton();
@@ -82,6 +109,74 @@ public class Home extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLayeredPaneUsuarios.setBackground(new java.awt.Color(102, 255, 102));
+        jLayeredPaneUsuarios.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLayeredPaneUsuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonBuscarUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonBuscarUsuario.setText("Buscar");
+        jButtonBuscarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarUsuarioActionPerformed(evt);
+            }
+        });
+        jLayeredPaneUsuarios.add(jButtonBuscarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 450, 80, -1));
+
+        jButtonAgregarUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonAgregarUsuario.setText("Agregar");
+        jLayeredPaneUsuarios.add(jButtonAgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, -1, -1));
+
+        Usuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Usuario.setForeground(new java.awt.Color(255, 255, 255));
+        Usuario.setText("Nombre del usuario");
+        jLayeredPaneUsuarios.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, -1, -1));
+        jLayeredPaneUsuarios.add(jTextFieldNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 250, 30));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("ID");
+        jLayeredPaneUsuarios.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, -1));
+
+        jTextFieldIdUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldIdUsuarioActionPerformed(evt);
+            }
+        });
+        jLayeredPaneUsuarios.add(jTextFieldIdUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 250, 30));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Contraseña");
+        jLayeredPaneUsuarios.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 274, -1, -1));
+
+        jTextFieldPassUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPassUsuarioActionPerformed(evt);
+            }
+        });
+        jLayeredPaneUsuarios.add(jTextFieldPassUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 250, 30));
+
+        jTableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableUsuarios);
+
+        jLayeredPaneUsuarios.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 450, 340));
+
+        jButtonBorrarUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonBorrarUsuario.setText("Borrar usuario");
+        jLayeredPaneUsuarios.add(jButtonBorrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 450, -1, -1));
+
+        getContentPane().add(jLayeredPaneUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 690));
+
         jButtonCerra.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonCerra.setText("X");
         jButtonCerra.addActionListener(new java.awt.event.ActionListener() {
@@ -102,10 +197,20 @@ public class Home extends javax.swing.JFrame {
 
         jButtonVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/iconCarShop.png"))); // NOI18N
         jButtonVentas.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/iconCarShopSelec.png"))); // NOI18N
+        jButtonVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVentasActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 30, -1, -1));
 
         jButtonUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/iconUsers.png"))); // NOI18N
         jButtonUsuarios.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/iconUsersSelec.png"))); // NOI18N
+        jButtonUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUsuariosActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 130, -1, -1));
 
         jLabelUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/iconUser.png"))); // NOI18N
@@ -113,6 +218,11 @@ public class Home extends javax.swing.JFrame {
 
         jButtonAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/iconStock.png"))); // NOI18N
         jButtonAlmacen.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/iconStockSelec.png"))); // NOI18N
+        jButtonAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlmacenActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAlmacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 230, -1, -1));
 
         jLabelFondoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/Fondo2.jpg"))); // NOI18N
@@ -202,7 +312,6 @@ public class Home extends javax.swing.JFrame {
         jLabelUsuarioName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelUsuarioName.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(jLabelUsuarioName, new org.netbeans.lib.awtextra.AbsoluteConstraints(955, 134, 100, -1));
-        jLabelUsuarioName.getAccessibleContext().setAccessibleName("");
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ventanas/Imagenes/Fondo.jpg"))); // NOI18N
         getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 700));
@@ -256,6 +365,65 @@ public class Home extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButtonAgregarActionPerformed
+
+    private void jButtonVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVentasActionPerformed
+        // TODO add your handling code here:
+        jButtonVentas.setSelected(true);
+        jButtonUsuarios.setSelected(false);
+        jButtonAlmacen.setSelected(false);
+        mostrarPantallaVentas();
+        jLayeredPaneUsuarios.setVisible(false);
+    }//GEN-LAST:event_jButtonVentasActionPerformed
+
+    private void jButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuariosActionPerformed
+        // TODO add your handling code here:
+        jButtonVentas.setSelected(false);
+        jButtonUsuarios.setSelected(true);
+        jButtonAlmacen.setSelected(false);
+        ocultarPantallaVentas();
+        jLayeredPaneUsuarios.setVisible(true);
+    }//GEN-LAST:event_jButtonUsuariosActionPerformed
+
+    private void jButtonAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlmacenActionPerformed
+        jButtonVentas.setSelected(false);
+        jButtonUsuarios.setSelected(false);
+        jButtonAlmacen.setSelected(true);
+        ocultarPantallaVentas();
+        jLayeredPaneUsuarios.setVisible(false);
+    }//GEN-LAST:event_jButtonAlmacenActionPerformed
+
+    private void jTextFieldIdUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldIdUsuarioActionPerformed
+
+    private void jTextFieldPassUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPassUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPassUsuarioActionPerformed
+
+    private void jButtonBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarUsuarioActionPerformed
+        if(jTextFieldNombreUsuario.getText().toString().equals("")){
+            JOptionPane.showMessageDialog(null, "No ha ingreso ningun nombre de usuario");
+        }
+        else{
+            ConectarBD conexion = new ConectarBD();
+            Usuario user = conexion.BuscarUsuario(jTextFieldNombreUsuario.getText().toString());
+            if(user==null){
+                JOptionPane.showMessageDialog(null, "El usuario no existe");
+            }
+            else{
+                Object[] dato = new Object[nombreColumnas.length];
+                dato[0] = user.getId();
+                dato[1] = user.getUsuario();
+                dato[2] = user.getPassword();
+                dato[3] = user.getPrivilegio();
+                if(modeltablaUsuarios.getRowCount()>0)
+                    modeltablaUsuarios.removeRow(0);
+                modeltablaUsuarios.addRow(dato);
+                
+                
+            }
+        }
+    }//GEN-LAST:event_jButtonBuscarUsuarioActionPerformed
     public void agregarProductoTabla(Producto produc){
         Object[] dato = new Object[nombreColumnas.length];
         dato[0] = produc.getNombreProducto();
@@ -263,6 +431,36 @@ public class Home extends javax.swing.JFrame {
         dato[2] = produc.getNumeroParte();
         dato[3] = produc.getPrecio();
         model.addRow(dato);
+    }
+    public void ocultarPantallaVentas(){
+        jButtonAgregar.setVisible(false);
+        jButtonBuscar.setVisible(false);
+        jButtonCancelar.setVisible(false);
+        jButtonVender.setVisible(false);
+        jLabelCantidadProducto.setVisible(false);
+        jLabelDescripcion.setVisible(false);
+        jLabelDescripcionProd.setVisible(false);
+        jLabelIdProducto.setVisible(false);
+        jLabelNombreProd.setVisible(false);
+        jScrollPane1.setVisible(false);
+        jTextFieldCantidad.setVisible(false);
+        jTextFieldId.setVisible(false);
+        jTextFieldNombre.setVisible(false);
+    }
+    public void mostrarPantallaVentas(){
+        jButtonAgregar.setVisible(true);
+        jButtonBuscar.setVisible(true);
+        jButtonCancelar.setVisible(true);
+        jButtonVender.setVisible(true);
+        jLabelCantidadProducto.setVisible(true);
+        jLabelDescripcion.setVisible(true);
+        jLabelDescripcionProd.setVisible(true);
+        jLabelIdProducto.setVisible(true);
+        jLabelNombreProd.setVisible(true);
+        jScrollPane1.setVisible(true);
+        jTextFieldCantidad.setVisible(true);
+        jTextFieldId.setVisible(true);
+        jTextFieldNombre.setVisible(true);
     }
     /**
      * @param args the command line arguments
@@ -290,7 +488,7 @@ public class Home extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -300,15 +498,21 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Usuario;
     private javax.swing.JButton jButtonAgregar;
+    private javax.swing.JButton jButtonAgregarUsuario;
     private javax.swing.JButton jButtonAlmacen;
+    private javax.swing.JButton jButtonBorrarUsuario;
     private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JButton jButtonBuscarUsuario;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonCerra;
     private javax.swing.JButton jButtonCerrarSesion;
     private javax.swing.JButton jButtonUsuarios;
     private javax.swing.JButton jButtonVender;
     private javax.swing.JButton jButtonVentas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelCantidadProducto;
     private javax.swing.JLabel jLabelDescripcion;
     private javax.swing.JLabel jLabelDescripcionProd;
@@ -319,10 +523,16 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNombreProd;
     private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JLabel jLabelUsuarioName;
+    private javax.swing.JLayeredPane jLayeredPaneUsuarios;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableUsuarios;
     private javax.swing.JTextField jTextFieldCantidad;
     private javax.swing.JTextField jTextFieldId;
+    private javax.swing.JTextField jTextFieldIdUsuario;
     private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JTextField jTextFieldNombreUsuario;
+    private javax.swing.JTextField jTextFieldPassUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -74,7 +74,7 @@ public class ConectarBD {
                     usu.setId(Integer.parseInt(rs.getString("id")));
                     usu.setUsuario(rs.getString("usuario"));
                     usu.setPassword(rs.getString("password"));
-                    usu.setPrivilegio(Integer.parseInt(rs.getString("privilegio")));
+                    usu.setPrivilegio(Integer.parseInt(rs.getString("priviegio")));
                 }
                 else{
                     usu = null;
