@@ -111,6 +111,45 @@ public class ConectarBD {
             JOptionPane.showMessageDialog(null, "El usuario no existe");
         }
     }
+    public void actualizarUsuario(String usuario, String password, String newPassword, int newPrivilegio){
+        if(ValidarUsuario(usuario, password)!=null){
+            try {
+                stmt.executeUpdate("UPDATE usuarios SET password = '"+newPassword+"', priviegio = '"+newPrivilegio+"' WHERE usuario = '"+usuario+"' AND password = '"+password+"'");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+                Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "El usuario no existe");
+        }
+    }
+    public void actualizarUsuario(String usuario, String password, String newPassword){
+        if(ValidarUsuario(usuario, password)!=null){
+            try {
+                stmt.executeUpdate("UPDATE usuarios SET password = '"+newPassword+"' WHERE usuario = '"+usuario+"' AND password = '"+password+"'");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+                Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "El usuario no existe");
+        }
+    }
+    public void actualizarUsuario(String usuario, String password, int newPrivilegio){
+        if(ValidarUsuario(usuario, password)!=null){
+            try {
+                stmt.executeUpdate("UPDATE usuarios SET priviegio = '"+newPrivilegio+"' WHERE usuario = '"+usuario+"' AND password = '"+password+"'");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+                Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "El usuario no existe");
+        }
+    }
     public Producto buscarProducto(String numParte){
         Producto producto = new Producto();
             try {

@@ -79,6 +79,7 @@ public class Home extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableUsuarios = new javax.swing.JTable();
         jButtonBorrarUsuario = new javax.swing.JButton();
+        jButtonActualizarUsuario = new javax.swing.JButton();
         jButtonCerra = new javax.swing.JButton();
         jButtonCerrarSesion = new javax.swing.JButton();
         jButtonVentas = new javax.swing.JButton();
@@ -184,6 +185,15 @@ public class Home extends javax.swing.JFrame {
             }
         });
         jLayeredPaneUsuarios.add(jButtonBorrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 450, -1, -1));
+
+        jButtonActualizarUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonActualizarUsuario.setText("Actualizar usuario");
+        jButtonActualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActualizarUsuarioActionPerformed(evt);
+            }
+        });
+        jLayeredPaneUsuarios.add(jButtonActualizarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 450, -1, -1));
 
         getContentPane().add(jLayeredPaneUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 690));
 
@@ -468,6 +478,47 @@ public class Home extends javax.swing.JFrame {
         else
             JOptionPane.showMessageDialog(null,"No hay ningun usuario seleccionado");
     }//GEN-LAST:event_jButtonBorrarUsuarioActionPerformed
+
+    private void jButtonActualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarUsuarioActionPerformed
+        if(modeltablaUsuarios.getRowCount()>0){
+            if(jTextFieldPassUsuario.getText().equals("")&&jTextFieldPrivilegioUsuario.getText().equals(""))
+                JOptionPane.showMessageDialog(null, "Ingrese por lo menos un campo a modificar");
+            else{
+                if(jTextFieldPrivilegioUsuario.getText().equals("")){
+                    ConectarBD conexion = new ConectarBD();
+                    conexion.actualizarUsuario(jTableUsuarios.getValueAt(0, 1).toString(), jTableUsuarios.getValueAt(0, 2).toString(), jTextFieldPassUsuario.getText());
+                    JOptionPane.showMessageDialog(null, "Contraseña actualizada correctamente");
+                    limpiarPantallaNoJtfUsuario();
+                }
+                else{
+                    if(jTextFieldPassUsuario.getText().equals("")){
+                        if(validarPrivilegio(jTextFieldPrivilegioUsuario.getText())==0){
+                        JOptionPane.showMessageDialog(null, "El privilegio no es valido, ingrese 1, 2 o 3");
+                        }
+                        else{
+                            ConectarBD conexion = new ConectarBD();
+                            conexion.actualizarUsuario(jTableUsuarios.getValueAt(0, 1).toString(), jTableUsuarios.getValueAt(0, 2).toString(), validarPrivilegio(jTextFieldPrivilegioUsuario.getText()));
+                            JOptionPane.showMessageDialog(null, "Privilegio actualizado correctamente");
+                            limpiarPantallaNoJtfUsuario();
+                        }
+                    }
+                    else{
+                        if(validarPrivilegio(jTextFieldPrivilegioUsuario.getText())==0){
+                        JOptionPane.showMessageDialog(null, "El privilegio no es valido, ingrese 1, 2 o 3");
+                        }
+                        else{
+                            ConectarBD conexion = new ConectarBD();
+                            conexion.actualizarUsuario(jTableUsuarios.getValueAt(0, 1).toString(), jTableUsuarios.getValueAt(0, 2).toString(), jTextFieldPassUsuario.getText(), validarPrivilegio(jTextFieldPrivilegioUsuario.getText()));
+                            JOptionPane.showMessageDialog(null, "Contraseña y privilegio actualizados correctamente");
+                            limpiarPantallaNoJtfUsuario();
+                        }
+                    }
+                }
+            }
+        }
+        else
+            JOptionPane.showMessageDialog(null,"No hay ningun usuario seleccionado");
+    }//GEN-LAST:event_jButtonActualizarUsuarioActionPerformed
     public void agregarProductoTabla(Producto produc){
         Object[] dato = new Object[nombreColumnas.length];
         dato[0] = produc.getNombreProducto();
@@ -492,6 +543,14 @@ public class Home extends javax.swing.JFrame {
         }
         else{
             return 0;
+        }
+    }
+    public void limpiarPantallaNoJtfUsuario(){
+        jTextFieldPassUsuario.setText("");
+        jTextFieldPrivilegioUsuario.setText("");
+        if(modeltablaUsuarios.getRowCount()>0){
+            modeltablaUsuarios.removeRow(0);
+            jTableUsuarios.setModel(modeltablaUsuarios);
         }
     }
     public void ocultarPantallaVentas(){
@@ -561,6 +620,7 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Usuario;
+    private javax.swing.JButton jButtonActualizarUsuario;
     private javax.swing.JButton jButtonAgregar;
     private javax.swing.JButton jButtonAgregarUsuario;
     private javax.swing.JButton jButtonAlmacen;
