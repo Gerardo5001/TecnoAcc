@@ -85,6 +85,32 @@ public class ConectarBD {
                 return usu;
             }
     }
+    public void agregarUsuario(Usuario user){
+        if(ValidarUsuario(user.getUsuario(), user.getPassword())==null){
+            try {
+                stmt.executeUpdate("INSERT INTO usuarios (usuario, password, priviegio) VALUES ('"+user.getUsuario()+"', '"+user.getPassword()+"', "+ user.getPrivilegio()+")");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+                Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "El usuario ya existe");
+        }
+    }
+    public void borrarUsuario(String usuario, String password){
+        if(ValidarUsuario(usuario, password)!=null){
+            try {
+                stmt.executeUpdate("DELETE FROM usuarios WHERE usuario = '"+usuario+"' AND password = '"+password+"'");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+                Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "El usuario no existe");
+        }
+    }
     public Producto buscarProducto(String numParte){
         Producto producto = new Producto();
             try {

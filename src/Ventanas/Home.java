@@ -73,7 +73,7 @@ public class Home extends javax.swing.JFrame {
         Usuario = new javax.swing.JLabel();
         jTextFieldNombreUsuario = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldIdUsuario = new javax.swing.JTextField();
+        jTextFieldPrivilegioUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldPassUsuario = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -124,6 +124,11 @@ public class Home extends javax.swing.JFrame {
 
         jButtonAgregarUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonAgregarUsuario.setText("Agregar");
+        jButtonAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAgregarUsuarioActionPerformed(evt);
+            }
+        });
         jLayeredPaneUsuarios.add(jButtonAgregarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, -1, -1));
 
         Usuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -134,19 +139,19 @@ public class Home extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("ID");
+        jLabel1.setText("Contraseña");
         jLayeredPaneUsuarios.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, -1));
 
-        jTextFieldIdUsuario.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldPrivilegioUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldIdUsuarioActionPerformed(evt);
+                jTextFieldPrivilegioUsuarioActionPerformed(evt);
             }
         });
-        jLayeredPaneUsuarios.add(jTextFieldIdUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 250, 30));
+        jLayeredPaneUsuarios.add(jTextFieldPrivilegioUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 250, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Contraseña");
+        jLabel2.setText("Privilegio");
         jLayeredPaneUsuarios.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 274, -1, -1));
 
         jTextFieldPassUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +159,7 @@ public class Home extends javax.swing.JFrame {
                 jTextFieldPassUsuarioActionPerformed(evt);
             }
         });
-        jLayeredPaneUsuarios.add(jTextFieldPassUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 250, 30));
+        jLayeredPaneUsuarios.add(jTextFieldPassUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 250, 30));
 
         jTableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -173,6 +178,11 @@ public class Home extends javax.swing.JFrame {
 
         jButtonBorrarUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonBorrarUsuario.setText("Borrar usuario");
+        jButtonBorrarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorrarUsuarioActionPerformed(evt);
+            }
+        });
         jLayeredPaneUsuarios.add(jButtonBorrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 450, -1, -1));
 
         getContentPane().add(jLayeredPaneUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 690));
@@ -392,16 +402,16 @@ public class Home extends javax.swing.JFrame {
         jLayeredPaneUsuarios.setVisible(false);
     }//GEN-LAST:event_jButtonAlmacenActionPerformed
 
-    private void jTextFieldIdUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdUsuarioActionPerformed
+    private void jTextFieldPrivilegioUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrivilegioUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldIdUsuarioActionPerformed
+    }//GEN-LAST:event_jTextFieldPrivilegioUsuarioActionPerformed
 
     private void jTextFieldPassUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPassUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPassUsuarioActionPerformed
 
     private void jButtonBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarUsuarioActionPerformed
-        if(jTextFieldNombreUsuario.getText().toString().equals("")){
+        if(jTextFieldNombreUsuario.getText().equals("")){
             JOptionPane.showMessageDialog(null, "No ha ingreso ningun nombre de usuario");
         }
         else{
@@ -411,19 +421,53 @@ public class Home extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "El usuario no existe");
             }
             else{
-                Object[] dato = new Object[nombreColumnas.length];
-                dato[0] = user.getId();
-                dato[1] = user.getUsuario();
-                dato[2] = user.getPassword();
-                dato[3] = user.getPrivilegio();
-                if(modeltablaUsuarios.getRowCount()>0)
-                    modeltablaUsuarios.removeRow(0);
-                modeltablaUsuarios.addRow(dato);
-                
-                
+                agregarUsuarioTabla(user);
             }
         }
     }//GEN-LAST:event_jButtonBuscarUsuarioActionPerformed
+
+    private void jButtonAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarUsuarioActionPerformed
+        ConectarBD conexion = new ConectarBD();
+        if(jTextFieldNombreUsuario.getText().equals("")||jTextFieldPassUsuario.getText().equals("")||jTextFieldPrivilegioUsuario.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Complete los campos");
+        }else{
+            
+            if(conexion.BuscarUsuario(jTextFieldNombreUsuario.getText())!=null)
+                JOptionPane.showMessageDialog(null, "El usuario ya existe");
+            else{
+                if(validarPrivilegio(jTextFieldPrivilegioUsuario.getText())==0){
+                    JOptionPane.showMessageDialog(null, "El privilegio no es valido, ingrese 1, 2 o 3");
+                }
+                else{
+                    Usuario user = new Usuario();
+                    user.setUsuario(jTextFieldNombreUsuario.getText());
+                    user.setPassword(jTextFieldPassUsuario.getText());
+                    user.setPrivilegio(Integer.parseInt(jTextFieldPrivilegioUsuario.getText()));
+                    conexion.agregarUsuario(user);
+                    JOptionPane.showMessageDialog(null, "Usuario agregado con exito");
+                    user=conexion.BuscarUsuario(user.getUsuario());
+                    jTextFieldPassUsuario.setText("");
+                    jTextFieldPrivilegioUsuario.setText("");
+                    agregarUsuarioTabla(user);
+                }
+             }
+        }
+    }//GEN-LAST:event_jButtonAgregarUsuarioActionPerformed
+
+    private void jButtonBorrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarUsuarioActionPerformed
+        ConectarBD conexion = new ConectarBD();
+        if(modeltablaUsuarios.getRowCount()>0){
+            conexion.borrarUsuario(jTableUsuarios.getValueAt(0, 1).toString(),jTableUsuarios.getValueAt(0, 2).toString());
+            JOptionPane.showMessageDialog(null, "Usuario borrado con exito");
+            jTextFieldNombreUsuario.setText("");
+            jTextFieldPassUsuario.setText("");
+            jTextFieldPrivilegioUsuario.setText("");
+            modeltablaUsuarios.removeRow(0);
+            jTableUsuarios.setModel(modeltablaUsuarios);
+        }
+        else
+            JOptionPane.showMessageDialog(null,"No hay ningun usuario seleccionado");
+    }//GEN-LAST:event_jButtonBorrarUsuarioActionPerformed
     public void agregarProductoTabla(Producto produc){
         Object[] dato = new Object[nombreColumnas.length];
         dato[0] = produc.getNombreProducto();
@@ -431,6 +475,24 @@ public class Home extends javax.swing.JFrame {
         dato[2] = produc.getNumeroParte();
         dato[3] = produc.getPrecio();
         model.addRow(dato);
+    }
+    public void agregarUsuarioTabla(Usuario user){
+        Object[] dato = new Object[nombreColumnas.length];
+                dato[0] = user.getId();
+                dato[1] = user.getUsuario();
+                dato[2] = user.getPassword();
+                dato[3] = user.getPrivilegio();
+                if(modeltablaUsuarios.getRowCount()>0)
+                    modeltablaUsuarios.removeRow(0);
+                modeltablaUsuarios.addRow(dato);
+    }
+    public int validarPrivilegio(String privilegio){
+        if(privilegio.equals("1")||privilegio.equals("2")||privilegio.equals("3")){
+            return Integer.parseInt(privilegio);
+        }
+        else{
+            return 0;
+        }
     }
     public void ocultarPantallaVentas(){
         jButtonAgregar.setVisible(false);
@@ -530,9 +592,9 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTable jTableUsuarios;
     private javax.swing.JTextField jTextFieldCantidad;
     private javax.swing.JTextField jTextFieldId;
-    private javax.swing.JTextField jTextFieldIdUsuario;
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldNombreUsuario;
     private javax.swing.JTextField jTextFieldPassUsuario;
+    private javax.swing.JTextField jTextFieldPrivilegioUsuario;
     // End of variables declaration//GEN-END:variables
 }
