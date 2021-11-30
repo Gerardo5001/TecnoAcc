@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -177,6 +178,33 @@ public class ConectarBD {
                 producto = null;
             }
             return producto;
+    }
+    public ArrayList<Producto> getProductos(){
+         ArrayList<Producto> productos = new ArrayList<>();
+         
+            try {
+                stmt = con.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM inventario");
+                while(rs.next()){
+                    Producto producto = new Producto();
+                    producto.setId(Integer.parseInt(rs.getString("id")));
+                    producto.setNombreProducto(rs.getString("nombreProducto"));
+                    producto.setModelo(rs.getString("modelo"));
+                    producto.setDescripcion(rs.getString("descripcion"));
+                    producto.setPrecio(Integer.parseInt(rs.getString("precio")));
+                    producto.setNumeroParte(rs.getString("numeroParte"));
+                    producto.setCategoria(rs.getString("categoria"));
+                    producto.setEstatus(rs.getString("estatus"));
+                    producto.setCantidad(Integer.parseInt(rs.getString("cantidad")));
+                    producto.setFechaIngreso(rs.getString("fechaIngreso"));
+                    producto.setFechaSalida(rs.getString("fechaSalida"));
+                    productos.add(producto);
+                }        
+            } catch (SQLException ex) {
+                Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex);
+            }
+            return productos;
     }
     public void eliminarProductos(String numParte, int cantidad){
         
