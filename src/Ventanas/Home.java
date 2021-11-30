@@ -59,7 +59,6 @@ public class Home extends javax.swing.JFrame {
         jLayeredPaneProductos.setVisible(false);
         jTableUsuarios.setModel(modelTablaUsuarios);
         llenarTablaProductos();
-        jTableProductos.setModel(modelTablaProductos);
     }
     public Home() {
         initComponents();
@@ -76,7 +75,6 @@ public class Home extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextFieldModeloProducto = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextFieldDescripcionProducto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldPrecioProducto = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -93,6 +91,10 @@ public class Home extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableProductos = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jTextFieldFechaIngreso = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextFieldDescripcionProducto = new javax.swing.JTextField();
         jLayeredPaneUsuarios = new javax.swing.JLayeredPane();
         jButtonBuscarUsuario = new javax.swing.JButton();
         jButtonAgregarUsuario = new javax.swing.JButton();
@@ -153,54 +155,58 @@ public class Home extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Descripcion");
-        jLayeredPaneProductos.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, -1, -1));
-        jLayeredPaneProductos.add(jTextFieldDescripcionProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 250, 80));
+        jLayeredPaneProductos.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Precio");
-        jLayeredPaneProductos.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, -1, -1));
-        jLayeredPaneProductos.add(jTextFieldPrecioProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 120, 30));
+        jLayeredPaneProductos.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, -1, -1));
+        jLayeredPaneProductos.add(jTextFieldPrecioProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 120, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Numero de parte");
-        jLayeredPaneProductos.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, -1));
-        jLayeredPaneProductos.add(jTextFieldNumParteProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 250, 30));
+        jLayeredPaneProductos.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, -1));
+        jLayeredPaneProductos.add(jTextFieldNumParteProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 250, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Categoria");
-        jLayeredPaneProductos.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, -1, -1));
-        jLayeredPaneProductos.add(jTextFieldCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 410, 120, 30));
+        jLayeredPaneProductos.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, -1, -1));
+        jLayeredPaneProductos.add(jTextFieldCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 170, 30));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Estatus");
-        jLayeredPaneProductos.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, -1, -1));
-        jLayeredPaneProductos.add(jTextFieldEstatusProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 120, 30));
+        jLayeredPaneProductos.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, -1, -1));
+        jLayeredPaneProductos.add(jTextFieldEstatusProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 120, 30));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Cantidad");
-        jLayeredPaneProductos.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, -1, -1));
-        jLayeredPaneProductos.add(jTextFieldCantidadProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, 120, 30));
+        jLabel10.setText("Cantidad disponible");
+        jLayeredPaneProductos.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, -1, -1));
+        jLayeredPaneProductos.add(jTextFieldCantidadProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, 170, 30));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setText("Borrar");
-        jLayeredPaneProductos.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 450, 89, -1));
+        jLayeredPaneProductos.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 300, 89, -1));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setText("Conpletar");
-        jLayeredPaneProductos.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 450, 89, -1));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jLayeredPaneProductos.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 89, -1));
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton3.setText("Actualizar");
-        jLayeredPaneProductos.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 450, -1, -1));
+        jLayeredPaneProductos.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, -1, -1));
 
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton4.setText("Agregar");
-        jLayeredPaneProductos.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 450, 89, -1));
+        jLayeredPaneProductos.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, 89, -1));
 
         jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -213,9 +219,24 @@ public class Home extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableProductosMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTableProductos);
 
-        jLayeredPaneProductos.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 490, 940, 170));
+        jLayeredPaneProductos.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 940, 290));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Fecha ingreso");
+        jLayeredPaneProductos.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, -1, -1));
+        jLayeredPaneProductos.add(jTextFieldFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 180, 170, 30));
+
+        jScrollPane4.setViewportView(jTextFieldDescripcionProducto);
+
+        jLayeredPaneProductos.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 370, 90));
 
         getContentPane().add(jLayeredPaneProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 690));
 
@@ -461,7 +482,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         ConectarBD conexion = new ConectarBD();
-        producto = conexion.buscarProducto(jTextFieldId.getText());
+        producto = conexion.buscarProducto(jTextFieldId.getText(),"numParte");
         if(producto!=null){
             if(producto.getCantidad()<1)
                 JOptionPane.showMessageDialog(null, "El producto no esta disponible.");
@@ -629,7 +650,50 @@ public class Home extends javax.swing.JFrame {
         else
             JOptionPane.showMessageDialog(null,"No hay ningun usuario seleccionado");
     }//GEN-LAST:event_jButtonActualizarUsuarioActionPerformed
-    public void llenarTablaProductos(){
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(jTextFieldNombreProducto.getText().equals("")&&jTextFieldModeloProducto.getText().equals("")&&jTextFieldNumParteProducto.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Ingrese el numero de parte, modelo o nombre para hacer una busqueda");
+        }
+        else{
+            if(jTextFieldNumParteProducto.getText().equals("")){
+                if(jTextFieldModeloProducto.getText().equals("")){
+                    ConectarBD conexion = new ConectarBD();
+                    if(conexion.buscarProducto(jTextFieldNombreProducto.getText(),"nombre")==null)
+                        JOptionPane.showMessageDialog(null,"Producto no encontrado");
+                    else{
+                        llenarCamposProducto(conexion.buscarProducto(jTextFieldNombreProducto.getText(),"nombre"));
+                        conexion.cerrarBD();
+                    }
+                }
+                else{
+                    ConectarBD conexion = new ConectarBD();
+                    if(conexion.buscarProducto(jTextFieldModeloProducto.getText(),"modelo")==null)
+                        JOptionPane.showMessageDialog(null,"Producto no encontrado");
+                    else{
+                        llenarCamposProducto(conexion.buscarProducto(jTextFieldModeloProducto.getText(),"modelo"));
+                        conexion.cerrarBD();
+                    }
+                }
+            }
+            else{
+                ConectarBD conexion = new ConectarBD();
+                if(conexion.buscarProducto(jTextFieldNumParteProducto.getText(),"numParte")==null)
+                    JOptionPane.showMessageDialog(null,"Producto no encontrado");
+                else{
+                    llenarCamposProducto(conexion.buscarProducto(jTextFieldNumParteProducto.getText(),"numParte"));
+                    conexion.cerrarBD();
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTableProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProductosMouseClicked
+        ConectarBD conexion = new ConectarBD();
+        llenarCamposProducto(conexion.buscarProducto(jTableProductos.getValueAt(jTableProductos.getSelectedRow(),5).toString(), "numParte"));
+        conexion.cerrarBD();
+    }//GEN-LAST:event_jTableProductosMouseClicked
+    private void llenarTablaProductos(){
         ConectarBD conexion = new ConectarBD();
         ArrayList<Producto> productos = conexion.getProductos();
         Object[] dato = new Object[nombreColumnasProductos.length];
@@ -646,8 +710,21 @@ public class Home extends javax.swing.JFrame {
                 dato[9] = produc.getFechaIngreso();
                 modelTablaProductos.addRow(dato);
             }
+        jTableProductos.setModel(modelTablaProductos);
     }
-    public void agregarProductoTabla(Producto produc){
+    private void llenarCamposProducto(Producto produc){
+        jTextFieldId.setText(produc.getId()+"");
+        jTextFieldNombreProducto.setText(produc.getNombreProducto());
+        jTextFieldModeloProducto.setText(produc.getModelo());
+        jTextFieldDescripcionProducto.setText(produc.getDescripcion());
+        jTextFieldPrecioProducto.setText(produc.getPrecio()+"");
+        jTextFieldNumParteProducto.setText(produc.getNumeroParte());
+        jTextFieldCategoriaProducto.setText(produc.getCategoria());
+        jTextFieldEstatusProducto.setText(produc.getEstatus());
+        jTextFieldCantidadProducto.setText(produc.getCantidad()+"");
+        jTextFieldFechaIngreso.setText(produc.getFechaIngreso());
+    }
+    private void agregarProductoTabla(Producto produc){
         Object[] dato = new Object[nombreColumnas.length];
         dato[0] = produc.getNombreProducto();
         dato[1] = produc.getModelo();
@@ -655,7 +732,7 @@ public class Home extends javax.swing.JFrame {
         dato[3] = produc.getPrecio();
         model.addRow(dato);
     }
-    public void agregarUsuarioTabla(Usuario user){
+    private void agregarUsuarioTabla(Usuario user){
         Object[] dato = new Object[nombreColumnas.length];
                 dato[0] = user.getId();
                 dato[1] = user.getUsuario();
@@ -665,7 +742,7 @@ public class Home extends javax.swing.JFrame {
                     modelTablaUsuarios.removeRow(0);
                 modelTablaUsuarios.addRow(dato);
     }
-    public int validarPrivilegio(String privilegio){
+    private int validarPrivilegio(String privilegio){
         if(privilegio.equals("1")||privilegio.equals("2")||privilegio.equals("3")){
             return Integer.parseInt(privilegio);
         }
@@ -673,7 +750,7 @@ public class Home extends javax.swing.JFrame {
             return 0;
         }
     }
-    public void limpiarPantallaNoJtfUsuario(){
+    private void limpiarPantallaNoJtfUsuario(){
         jTextFieldPassUsuario.setText("");
         jTextFieldPrivilegioUsuario.setText("");
         if(modelTablaUsuarios.getRowCount()>0){
@@ -681,7 +758,7 @@ public class Home extends javax.swing.JFrame {
             jTableUsuarios.setModel(modelTablaUsuarios);
         }
     }
-    public void ocultarPantallaVentas(){
+    private void ocultarPantallaVentas(){
         jButtonAgregar.setVisible(false);
         jButtonBuscar.setVisible(false);
         jButtonCancelar.setVisible(false);
@@ -696,7 +773,7 @@ public class Home extends javax.swing.JFrame {
         jTextFieldId.setVisible(false);
         jTextFieldNombre.setVisible(false);
     }
-    public void mostrarPantallaVentas(){
+    private void mostrarPantallaVentas(){
         jButtonAgregar.setVisible(true);
         jButtonBuscar.setVisible(true);
         jButtonCancelar.setVisible(true);
@@ -767,6 +844,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton jButtonVentas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -790,6 +868,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableProductos;
     private javax.swing.JTable jTableUsuarios;
@@ -798,6 +877,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldCategoriaProducto;
     private javax.swing.JTextField jTextFieldDescripcionProducto;
     private javax.swing.JTextField jTextFieldEstatusProducto;
+    private javax.swing.JTextField jTextFieldFechaIngreso;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldModeloProducto;
     private javax.swing.JTextField jTextFieldNombre;

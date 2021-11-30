@@ -151,11 +151,13 @@ public class ConectarBD {
             JOptionPane.showMessageDialog(null, "El usuario no existe");
         }
     }
-    public Producto buscarProducto(String numParte){
+    public Producto buscarProducto(String dato, String atributoBusqueda){
         Producto producto = new Producto();
-            try {
+        switch(atributoBusqueda){
+            case "numParte":
+                try {
                 stmt = con.createStatement();
-                rs = stmt.executeQuery("SELECT * FROM inventario WHERE numeroParte='"+numParte+"'");
+                rs = stmt.executeQuery("SELECT * FROM inventario WHERE numeroParte='"+dato+"'");
                 if(rs.next()){
                     producto.setId(Integer.parseInt(rs.getString("id")));
                     producto.setNombreProducto(rs.getString("nombreProducto"));
@@ -177,11 +179,65 @@ public class ConectarBD {
                 Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
                 producto = null;
             }
-            return producto;
+                break;
+            case "modelo":
+                try {
+                stmt = con.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM inventario WHERE modelo='"+dato+"'");
+                if(rs.next()){
+                    producto.setId(Integer.parseInt(rs.getString("id")));
+                    producto.setNombreProducto(rs.getString("nombreProducto"));
+                    producto.setModelo(rs.getString("modelo"));
+                    producto.setDescripcion(rs.getString("descripcion"));
+                    producto.setPrecio(Integer.parseInt(rs.getString("precio")));
+                    producto.setNumeroParte(rs.getString("numeroParte"));
+                    producto.setCategoria(rs.getString("categoria"));
+                    producto.setEstatus(rs.getString("estatus"));
+                    producto.setCantidad(Integer.parseInt(rs.getString("cantidad")));
+                    producto.setFechaIngreso(rs.getString("fechaIngreso"));
+                    producto.setFechaSalida(rs.getString("fechaSalida"));
+                }
+                else{
+                    producto = null;
+                } 
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
+                    producto = null;
+                }
+                break;
+            case "nombre":
+                try {
+                stmt = con.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM inventario WHERE nombreProducto='"+dato+"'");
+                if(rs.next()){
+                    producto.setId(Integer.parseInt(rs.getString("id")));
+                    producto.setNombreProducto(rs.getString("nombreProducto"));
+                    producto.setModelo(rs.getString("modelo"));
+                    producto.setDescripcion(rs.getString("descripcion"));
+                    producto.setPrecio(Integer.parseInt(rs.getString("precio")));
+                    producto.setNumeroParte(rs.getString("numeroParte"));
+                    producto.setCategoria(rs.getString("categoria"));
+                    producto.setEstatus(rs.getString("estatus"));
+                    producto.setCantidad(Integer.parseInt(rs.getString("cantidad")));
+                    producto.setFechaIngreso(rs.getString("fechaIngreso"));
+                    producto.setFechaSalida(rs.getString("fechaSalida"));
+                }
+                else{
+                    producto = null;
+                } 
+                
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
+                    producto = null;
+                }
+                break;
+                default:
+                    Logger.getLogger("Case no valido en metodo: buscarProducto");
+        }
+        return producto;
     }
     public ArrayList<Producto> getProductos(){
          ArrayList<Producto> productos = new ArrayList<>();
-         
             try {
                 stmt = con.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM inventario");
