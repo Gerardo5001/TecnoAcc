@@ -262,6 +262,14 @@ public class ConectarBD {
             }
             return productos;
     }
+    public void actualizarProducto(Producto produ, int id){
+        try {
+            stmt.executeUpdate("UPDATE inventario SET nombreProducto = '"+produ.getNombreProducto()+"', modelo = '"+produ.getModelo()+"', descripcion = '"+produ.getDescripcion()+"', precio = "+produ.getPrecio()+", numeroParte = '"+produ.getNumeroParte()+"', categoria = '"+produ.getCategoria()+"', estatus = '"+produ.getEstatus()+"', cantidad = '"+produ.getCantidad()+"' WHERE id = "+id+"");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void eliminarProductos(String numParte, int cantidad){
         
     }

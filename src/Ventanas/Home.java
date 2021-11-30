@@ -85,10 +85,10 @@ public class Home extends javax.swing.JFrame {
         jTextFieldEstatusProducto = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTextFieldCantidadProducto = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonBorrarProducto = new javax.swing.JButton();
+        jButtonCompletarProducto = new javax.swing.JButton();
+        jButtonActualizarProducto = new javax.swing.JButton();
+        jButtonAgregarProducto = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableProductos = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
@@ -187,26 +187,31 @@ public class Home extends javax.swing.JFrame {
         jLayeredPaneProductos.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, -1, -1));
         jLayeredPaneProductos.add(jTextFieldCantidadProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, 170, 30));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setText("Borrar");
-        jLayeredPaneProductos.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 300, 89, -1));
+        jButtonBorrarProducto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonBorrarProducto.setText("Borrar");
+        jLayeredPaneProductos.add(jButtonBorrarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 300, 89, -1));
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton2.setText("Conpletar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCompletarProducto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonCompletarProducto.setText("Conpletar");
+        jButtonCompletarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonCompletarProductoActionPerformed(evt);
             }
         });
-        jLayeredPaneProductos.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 89, -1));
+        jLayeredPaneProductos.add(jButtonCompletarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 89, -1));
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton3.setText("Actualizar");
-        jLayeredPaneProductos.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, -1, -1));
+        jButtonActualizarProducto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonActualizarProducto.setText("Actualizar");
+        jButtonActualizarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActualizarProductoActionPerformed(evt);
+            }
+        });
+        jLayeredPaneProductos.add(jButtonActualizarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, -1, -1));
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton4.setText("Agregar");
-        jLayeredPaneProductos.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, 89, -1));
+        jButtonAgregarProducto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonAgregarProducto.setText("Agregar");
+        jLayeredPaneProductos.add(jButtonAgregarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, 89, -1));
 
         jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -651,7 +656,7 @@ public class Home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"No hay ningun usuario seleccionado");
     }//GEN-LAST:event_jButtonActualizarUsuarioActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonCompletarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCompletarProductoActionPerformed
         if(jTextFieldNombreProducto.getText().equals("")&&jTextFieldModeloProducto.getText().equals("")&&jTextFieldNumParteProducto.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Ingrese el numero de parte, modelo o nombre para hacer una busqueda");
         }
@@ -686,17 +691,59 @@ public class Home extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonCompletarProductoActionPerformed
 
     private void jTableProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProductosMouseClicked
         ConectarBD conexion = new ConectarBD();
         llenarCamposProducto(conexion.buscarProducto(jTableProductos.getValueAt(jTableProductos.getSelectedRow(),5).toString(), "numParte"));
         conexion.cerrarBD();
     }//GEN-LAST:event_jTableProductosMouseClicked
+
+    private void jButtonActualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarProductoActionPerformed
+        if(jTextFieldNombreProducto.getText().equals("")||jTextFieldModeloProducto.getText().equals("")||jTextFieldDescripcionProducto.getText().equals("")||
+                jTextFieldPrecioProducto.getText().equals("")||jTextFieldNumParteProducto.getText().equals("")||
+                jTextFieldCategoriaProducto.getText().equals("")||jTextFieldEstatusProducto.getText().equals("")||jTextFieldCantidadProducto.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Complete los campos");
+        }
+        else{
+            ConectarBD conexion = new ConectarBD();
+            Producto producto = conexion.buscarProducto(jTextFieldNumParteProducto.getText(), "numParte");
+            if(producto!=null){
+                if(validarInt(jTextFieldPrecioProducto.getText())){
+                    if(jTextFieldEstatusProducto.getText().equals("Oferta")||jTextFieldEstatusProducto.getText().equals("Disponible")||
+                            jTextFieldEstatusProducto.getText().equals("Nuevo")||jTextFieldEstatusProducto.getText().equals("MasVisto")){
+                        if(validarInt(jTextFieldCantidadProducto.getText())){
+                            Producto produ = new Producto();
+                            produ.setNombreProducto(jTextFieldNombreProducto.getText());
+                            produ.setModelo(jTextFieldModeloProducto.getText());
+                            produ.setDescripcion(jTextFieldDescripcionProducto.getText());
+                            produ.setPrecio(Integer.parseInt(jTextFieldPrecioProducto.getText()));
+                            produ.setNumeroParte(jTextFieldNumParteProducto.getText());
+                            produ.setCategoria(jTextFieldCategoriaProducto.getText());
+                            produ.setEstatus(jTextFieldEstatusProducto.getText());
+                            produ.setCantidad(Integer.parseInt(jTextFieldCantidadProducto.getText()));
+                            conexion.actualizarProducto(produ, producto.getId());
+                            JOptionPane.showMessageDialog(null, "Producto actualizado correctamente");
+                            llenarTablaProductos();
+                        }
+                        else
+                            JOptionPane.showMessageDialog(null, "Ingrese una cantidad valida");
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null, "Ingrese una categoria valida: Oferta, Disponible, Nuevo, MasVistos");
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "Ingrese un precio valido");
+            }
+            else
+                JOptionPane.showMessageDialog(null, "El producto no existe");
+        }
+    }//GEN-LAST:event_jButtonActualizarProductoActionPerformed
     private void llenarTablaProductos(){
         ConectarBD conexion = new ConectarBD();
         ArrayList<Producto> productos = conexion.getProductos();
         Object[] dato = new Object[nombreColumnasProductos.length];
+        modelTablaProductos.getDataVector().removeAllElements();
         for(Producto produc:productos){
                 dato[0] = produc.getId();
                 dato[1] = produc.getNombreProducto();
@@ -748,6 +795,16 @@ public class Home extends javax.swing.JFrame {
         }
         else{
             return 0;
+        }
+    }
+    private boolean validarInt(String numero){
+        try {
+            if(Integer.parseInt(numero)>0)
+            return true;
+            else
+                return false;
+        } catch (Exception e) {
+            return false;
         }
     }
     private void limpiarPantallaNoJtfUsuario(){
@@ -825,20 +882,20 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Usuario;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonActualizarProducto;
     private javax.swing.JButton jButtonActualizarUsuario;
     private javax.swing.JButton jButtonAgregar;
+    private javax.swing.JButton jButtonAgregarProducto;
     private javax.swing.JButton jButtonAgregarUsuario;
     private javax.swing.JButton jButtonAlmacen;
+    private javax.swing.JButton jButtonBorrarProducto;
     private javax.swing.JButton jButtonBorrarUsuario;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonBuscarUsuario;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonCerra;
     private javax.swing.JButton jButtonCerrarSesion;
+    private javax.swing.JButton jButtonCompletarProducto;
     private javax.swing.JButton jButtonUsuarios;
     private javax.swing.JButton jButtonVender;
     private javax.swing.JButton jButtonVentas;
