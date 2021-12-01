@@ -25,6 +25,7 @@ public class Home extends javax.swing.JFrame {
     private final String nombreColumnasUsuarios[] = {"ID","Usuario","Password","Privilegio"};
     private final String nombreColumnasProductos[] = {"ID","Nombre","Modelo","Descripcion","Precio","Num Parte","Categoria","Estatus","Cantidad","Fecha Ingreso"};
     private Producto producto;
+    private Producto productoSelec;
     private Usuario usuario;
     DefaultTableModel model = new DefaultTableModel(null, nombreColumnas){
         @Override
@@ -189,6 +190,11 @@ public class Home extends javax.swing.JFrame {
 
         jButtonBorrarProducto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonBorrarProducto.setText("Borrar");
+        jButtonBorrarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorrarProductoActionPerformed(evt);
+            }
+        });
         jLayeredPaneProductos.add(jButtonBorrarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 300, 89, -1));
 
         jButtonCompletarProducto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -535,22 +541,29 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonVentasActionPerformed
 
     private void jButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuariosActionPerformed
-        // TODO add your handling code here:
-        jButtonVentas.setSelected(false);
-        jButtonUsuarios.setSelected(true);
-        jButtonAlmacen.setSelected(false);
-        ocultarPantallaVentas();
-        jLayeredPaneUsuarios.setVisible(true);
-        jLayeredPaneProductos.setVisible(false);
+        if(usuario.getPrivilegio()==3){
+            jButtonVentas.setSelected(false);
+            jButtonUsuarios.setSelected(true);
+            jButtonAlmacen.setSelected(false);
+            ocultarPantallaVentas();
+            jLayeredPaneUsuarios.setVisible(true);
+            jLayeredPaneProductos.setVisible(false);
+        }
+        else
+            JOptionPane.showMessageDialog(null, "No cuenta con privilegios, contacte al administrador");
     }//GEN-LAST:event_jButtonUsuariosActionPerformed
 
     private void jButtonAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlmacenActionPerformed
-        jButtonVentas.setSelected(false);
-        jButtonUsuarios.setSelected(false);
-        jButtonAlmacen.setSelected(true);
-        ocultarPantallaVentas();
-        jLayeredPaneUsuarios.setVisible(false);
-        jLayeredPaneProductos.setVisible(true);
+        if(usuario.getPrivilegio()==3){
+            jButtonVentas.setSelected(false);
+            jButtonUsuarios.setSelected(false);
+            jButtonAlmacen.setSelected(true);
+            ocultarPantallaVentas();
+            jLayeredPaneUsuarios.setVisible(false);
+            jLayeredPaneProductos.setVisible(true);
+        }
+        else
+            JOptionPane.showMessageDialog(null, "No cuenta con privilegios, contacte al administrador");
     }//GEN-LAST:event_jButtonAlmacenActionPerformed
 
     private void jTextFieldPrivilegioUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrivilegioUsuarioActionPerformed
@@ -672,6 +685,7 @@ public class Home extends javax.swing.JFrame {
                     if(conexion.buscarProducto(jTextFieldNombreProducto.getText(),"nombre")==null)
                         JOptionPane.showMessageDialog(null,"Producto no encontrado");
                     else{
+                        productoSelec = conexion.buscarProducto(jTextFieldNombreProducto.getText(),"nombre");
                         llenarCamposProducto(conexion.buscarProducto(jTextFieldNombreProducto.getText(),"nombre"));
                         conexion.cerrarBD();
                     }
@@ -681,6 +695,7 @@ public class Home extends javax.swing.JFrame {
                     if(conexion.buscarProducto(jTextFieldModeloProducto.getText(),"modelo")==null)
                         JOptionPane.showMessageDialog(null,"Producto no encontrado");
                     else{
+                        productoSelec = conexion.buscarProducto(jTextFieldModeloProducto.getText(),"modelo");
                         llenarCamposProducto(conexion.buscarProducto(jTextFieldModeloProducto.getText(),"modelo"));
                         conexion.cerrarBD();
                     }
@@ -691,6 +706,7 @@ public class Home extends javax.swing.JFrame {
                 if(conexion.buscarProducto(jTextFieldNumParteProducto.getText(),"numParte")==null)
                     JOptionPane.showMessageDialog(null,"Producto no encontrado");
                 else{
+                    productoSelec = conexion.buscarProducto(jTextFieldNumParteProducto.getText(),"numParte");
                     llenarCamposProducto(conexion.buscarProducto(jTextFieldNumParteProducto.getText(),"numParte"));
                     conexion.cerrarBD();
                 }
@@ -700,7 +716,8 @@ public class Home extends javax.swing.JFrame {
 
     private void jTableProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProductosMouseClicked
         ConectarBD conexion = new ConectarBD();
-        llenarCamposProducto(conexion.buscarProducto(jTableProductos.getValueAt(jTableProductos.getSelectedRow(),5).toString(), "numParte"));
+        productoSelec = conexion.buscarProducto(jTableProductos.getValueAt(jTableProductos.getSelectedRow(),5).toString(), "numParte");
+        llenarCamposProducto(productoSelec);
         conexion.cerrarBD();
     }//GEN-LAST:event_jTableProductosMouseClicked
 
@@ -785,6 +802,17 @@ public class Home extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Producto ya registrado");
         }
     }//GEN-LAST:event_jButtonAgregarProductoActionPerformed
+
+    private void jButtonBorrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarProductoActionPerformed
+        if(productoSelec!=null){
+            ConectarBD conexion = new ConectarBD();
+            conexion.borrarProducto(productoSelec.getId());
+            conexion.cerrarBD();
+            JOptionPane.showMessageDialog(null, "Producto borrado con exito");
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Seleccione un producto");
+    }//GEN-LAST:event_jButtonBorrarProductoActionPerformed
     private void llenarTablaProductos(){
         ConectarBD conexion = new ConectarBD();
         ArrayList<Producto> productos = conexion.getProductos();

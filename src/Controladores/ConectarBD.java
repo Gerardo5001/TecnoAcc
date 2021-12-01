@@ -278,8 +278,14 @@ public class ConectarBD {
             Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void eliminarProductos(String numParte, int cantidad){
+    public void borrarProducto(int id){
         
+        try {
+            stmt.executeUpdate("DELETE FROM inventario WHERE id = "+id+"");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public void cerrarBD(){
             try {
