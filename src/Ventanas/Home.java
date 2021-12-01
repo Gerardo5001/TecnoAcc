@@ -211,6 +211,11 @@ public class Home extends javax.swing.JFrame {
 
         jButtonAgregarProducto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonAgregarProducto.setText("Agregar");
+        jButtonAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAgregarProductoActionPerformed(evt);
+            }
+        });
         jLayeredPaneProductos.add(jButtonAgregarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, 89, -1));
 
         jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
@@ -709,7 +714,7 @@ public class Home extends javax.swing.JFrame {
             ConectarBD conexion = new ConectarBD();
             Producto producto = conexion.buscarProducto(jTextFieldNumParteProducto.getText(), "numParte");
             if(producto!=null){
-                if(validarInt(jTextFieldPrecioProducto.getText())){
+                if(validarDouble(jTextFieldPrecioProducto.getText())){
                     if(jTextFieldEstatusProducto.getText().equals("Oferta")||jTextFieldEstatusProducto.getText().equals("Disponible")||
                             jTextFieldEstatusProducto.getText().equals("Nuevo")||jTextFieldEstatusProducto.getText().equals("MasVisto")){
                         if(validarInt(jTextFieldCantidadProducto.getText())){
@@ -717,7 +722,7 @@ public class Home extends javax.swing.JFrame {
                             produ.setNombreProducto(jTextFieldNombreProducto.getText());
                             produ.setModelo(jTextFieldModeloProducto.getText());
                             produ.setDescripcion(jTextFieldDescripcionProducto.getText());
-                            produ.setPrecio(Integer.parseInt(jTextFieldPrecioProducto.getText()));
+                            produ.setPrecio(Double.parseDouble(jTextFieldPrecioProducto.getText()));
                             produ.setNumeroParte(jTextFieldNumParteProducto.getText());
                             produ.setCategoria(jTextFieldCategoriaProducto.getText());
                             produ.setEstatus(jTextFieldEstatusProducto.getText());
@@ -739,6 +744,47 @@ public class Home extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "El producto no existe");
         }
     }//GEN-LAST:event_jButtonActualizarProductoActionPerformed
+
+    private void jButtonAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarProductoActionPerformed
+        if(jTextFieldNombreProducto.getText().equals("")||jTextFieldModeloProducto.getText().equals("")||jTextFieldDescripcionProducto.getText().equals("")||
+                jTextFieldPrecioProducto.getText().equals("")||jTextFieldNumParteProducto.getText().equals("")||
+                jTextFieldCategoriaProducto.getText().equals("")||jTextFieldEstatusProducto.getText().equals("")||jTextFieldCantidadProducto.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Complete los campos");
+        }
+        else{
+            ConectarBD conexion = new ConectarBD();
+            Producto producto = conexion.buscarProducto(jTextFieldNumParteProducto.getText(), "numParte");
+            if(producto==null){
+                if(validarDouble(jTextFieldPrecioProducto.getText())){
+                    if(jTextFieldEstatusProducto.getText().equals("Oferta")||jTextFieldEstatusProducto.getText().equals("Disponible")||
+                            jTextFieldEstatusProducto.getText().equals("Nuevo")||jTextFieldEstatusProducto.getText().equals("MasVisto")){
+                        if(validarInt(jTextFieldCantidadProducto.getText())){
+                            Producto produ = new Producto();
+                            produ.setNombreProducto(jTextFieldNombreProducto.getText());
+                            produ.setModelo(jTextFieldModeloProducto.getText());
+                            produ.setDescripcion(jTextFieldDescripcionProducto.getText());
+                            produ.setPrecio(Double.parseDouble(jTextFieldPrecioProducto.getText()));
+                            produ.setNumeroParte(jTextFieldNumParteProducto.getText());
+                            produ.setCategoria(jTextFieldCategoriaProducto.getText());
+                            produ.setEstatus(jTextFieldEstatusProducto.getText());
+                            produ.setCantidad(Integer.parseInt(jTextFieldCantidadProducto.getText()));
+                            conexion.agregarProducto(produ);
+                            JOptionPane.showMessageDialog(null, "Producto agreado correctamente");
+                            llenarTablaProductos();
+                        }
+                        else
+                            JOptionPane.showMessageDialog(null, "Ingrese una cantidad valida");
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null, "Ingrese una categoria valida: Oferta, Disponible, Nuevo, MasVistos");
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "Ingrese un precio valido");
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Producto ya registrado");
+        }
+    }//GEN-LAST:event_jButtonAgregarProductoActionPerformed
     private void llenarTablaProductos(){
         ConectarBD conexion = new ConectarBD();
         ArrayList<Producto> productos = conexion.getProductos();
@@ -800,6 +846,16 @@ public class Home extends javax.swing.JFrame {
     private boolean validarInt(String numero){
         try {
             if(Integer.parseInt(numero)>0)
+            return true;
+            else
+                return false;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    private boolean validarDouble(String numero){
+        try {
+        if(Double.parseDouble(numero)>0)
             return true;
             else
                 return false;

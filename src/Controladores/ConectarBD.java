@@ -270,6 +270,14 @@ public class ConectarBD {
             Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void agregarProducto(Producto produc){
+        try {
+            stmt.executeUpdate("INSERT INTO inventario (nombreProducto, modelo, descripcion, precio, numeroParte, categoria, estatus, cantidad, fechaIngreso) VALUES ('"+produc.getNombreProducto()+"', '"+produc.getModelo()+"', '"+produc.getDescripcion()+"', "+produc.getPrecio()+", '"+produc.getNumeroParte()+"', '"+produc.getCategoria()+"', '"+produc.getEstatus()+"', "+produc.getCantidad()+", "+ produc.getFechaIngreso()+")");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            Logger.getLogger(ConectarBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void eliminarProductos(String numParte, int cantidad){
         
     }
